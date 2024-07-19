@@ -21,7 +21,7 @@ wget -O config.yaml [代理商提供的订阅链接]    # your vpn config
 cd Clash
 ./clash -d .
 
-# Open another terminal and set proxy for the system. 
+# Open another terminal and set proxy for the system. Add into ~/.bashrc or ~/.zshrc to make it permanent.
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7891
 
 # cancel proxy
@@ -30,11 +30,12 @@ unset http_proxy
 unset all_proxy
 ```
 
-### ZSH
+### Zsh
 
-quick-links: [oh-my-zsh](https://ohmyz.sh/#install), [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
+quick-links: [oh-my-zsh](https://ohmyz.sh/#install), [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md), [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
 
 1. Install
+
 ```
 # install oh-my-zsh. Need Clash!
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
@@ -43,7 +44,7 @@ sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 
-To use zsh as the default one, add the following two lines to `~/.bash_profile` and reconnect the server.
+To use zsh as the default one, add the following two lines to `~/.bash_profile` (or `~/.bashrc`) and reconnect the server.
 
 ```
 export SHELL=`which zsh`
@@ -51,15 +52,28 @@ export SHELL=`which zsh`
 ```
 
 
-2. Modify the defualt theme and add the plugin (inside ~/.zshrc):
-```
-ZSH_THEME="flazz"
+2. Install useful plugins:
 
-plugins=( 
+```
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+And set the following lines in `~/.zshrc`:
+
+```
+plugins=(
     git
     zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 ```
+
+3. Change theme
+
+Recommend [powerlevel10k](https://github.com/romkatv/powerlevel10k).
+
+4. Use `source ~/.zshrc` to make the changes effective.
 
 
 ### Conda 
@@ -72,6 +86,9 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
 
 # Install 
 sh Miniconda3-py38_4.12.0-Linux-x86_64.sh
+
+# Refresh .zshrc
+source ~/.zshrc
 ```
 
 To create and remove environments,
@@ -84,7 +101,7 @@ conda remove -n ${ENV_NAME}
 ```
 
 
-### Qinghua Mirror
+### Tsinghua Mirror
 
 Quick-links: [pip](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
 
@@ -107,14 +124,19 @@ conda config --remove channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/clo
 
 ```
 
+### CUDA Toolkit 11.8
+
+Recommend [this blog](https://zhuanlan.zhihu.com/p/612556391).
 
 ### pytorch
 
 quick-links: [pytorch](https://pytorch.org/get-started/previous-versions/)
 
-NOTE: If you are using Qinghua Mirror through pip to install pytorch, the default version of torch is CUDA10.2. It may have problem to run on machine with CUDA 11.0+ !
+Personal preference: 2.0.1+cu118
 
-NOTE: If you are using Qinghua Mirror through conda to install pytorch, remove '-c pytorch'. (But it may fail to find the suitable version)
+NOTE: If you are using Tsinghua Mirror through pip to install pytorch, the default version of torch is CUDA10.2. It may have problem to run on machine with CUDA 11.0+ !
+
+NOTE: If you are using Tsinghua Mirror through conda to install pytorch, remove '-c pytorch'. (But it may fail to find the suitable version)
 
 Recommended way:
 
@@ -141,7 +163,7 @@ To connect to github, first run
 ```
 ssh-keygen
 ```
-to generate keys. Then put the public key to -> Settings -> SSH and GPG keys
+to generate keys. Then put the public key (`.ssh/id_rsa.pub`) to -> Settings -> SSH and GPG keys
 
 Then, write the following lines to `~/.ssh/config`
 ```
