@@ -39,9 +39,6 @@ quick-links: [oh-my-zsh](https://ohmyz.sh/#install), [zsh-autosuggestions](https
 ```
 # install oh-my-zsh. Need Clash!
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-
-# install zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 
 To use zsh as the default one, add the following two lines to `~/.bash_profile` (or `~/.bashrc`) and reconnect the server.
@@ -69,9 +66,13 @@ plugins=(
 )
 ```
 
-3. Change theme
+3. Change theme to [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
-Recommend [powerlevel10k](https://github.com/romkatv/powerlevel10k).
+```
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+Then open `~/.zshrc`, find the line that sets ZSH_THEME, and change its value to `"powerlevel10k/powerlevel10k"`.
 
 4. Use `source ~/.zshrc` to make the changes effective.
 
@@ -83,10 +84,8 @@ quick-links: [miniconda](https://docs.conda.io/en/latest/miniconda.html), [Anaco
 ```
 # Download Miniconda (Linux, python 3.8)
 wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
-
 # Install 
 sh Miniconda3-py38_4.12.0-Linux-x86_64.sh
-
 # Refresh .zshrc
 source ~/.zshrc
 ```
@@ -97,7 +96,7 @@ To create and remove environments,
 conda create -n ${ENV_NAME}
 
 # remove envs
-conda remove -n ${ENV_NAME}
+conda remove -n ${ENV_NAME} --all
 ```
 
 
